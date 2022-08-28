@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 const items = [
   {
-    title: 'Get started',
-    links: [{href: '/docs', children: 'Overview'}],
+    title: 'Technical Writing Portfolio',
+    links: [{href: '/docs', children: 'Manually Generate New CA Certificate'}],
   },
 ];
 
@@ -35,8 +35,8 @@ export function SideNav() {
         {`
           nav {
             position: sticky;
-            top: var(--top-nav-height);
-            height: calc(100vh - var(--top-nav-height));
+            top: 102px;
+            height: calc(100vh - 102px);
             flex: 0 0 auto;
             overflow-y: auto;
             padding: 2.5rem 2rem 2rem;
@@ -52,14 +52,17 @@ export function SideNav() {
           }
           li {
             list-style: none;
-            margin: 0;
+            margin: 15px 0 0 0;
+            color: #697386
           }
           li a {
             text-decoration: none;
           }
-          li a:hover,
+          li a:hover {
+            color: black;
+          }
           li.active > a {
-            text-decoration: underline;
+            color: #5469D4;
           }
         `}
       </style>

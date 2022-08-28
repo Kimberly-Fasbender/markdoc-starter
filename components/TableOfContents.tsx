@@ -38,8 +38,8 @@ export function TableOfContents({toc}) {
         {`
           nav {
             position: sticky;
-            top: calc(2.5rem + var(--top-nav-height));
-            max-height: calc(100vh - var(--top-nav-height));
+            top: calc(2.5rem + 102px);
+            max-height: calc(100vh - 102px);
             flex: 0 0 auto;
             align-self: flex-start;
             margin-bottom: 1rem;

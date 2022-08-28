@@ -2,11 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 
 export function TopNav({children}) {
+  // TODO: Swap KF for a logo
   return (
     <nav>
-      <Link href="/" className="flex">
-        Home
-      </Link>
+      KF
       <section>{children}</section>
       <style jsx>
         {`
@@ -20,7 +19,7 @@ export function TopNav({children}) {
             justify-content: space-between;
             gap: 1rem;
             padding: 1rem 2rem;
-            background: white;
+            background: #F7FAFC;
             border-bottom: 1px solid var(--border-color);
           }
           nav :global(a) {

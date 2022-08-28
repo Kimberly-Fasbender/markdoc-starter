@@ -12,6 +12,7 @@ import 'prismjs/themes/prism.css';
 import '../public/globals.css'
 
 import type { AppProps } from 'next/app'
+import { TabGroup } from '../components/TabGroup';
 
 const TITLE = 'Markdoc';
 const DESCRIPTION = 'A powerful, flexible, Markdown-based authoring framework';
@@ -69,33 +70,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <TopNav>
-        <Link href="/docs">Docs</Link>
+        <Link href="/" className="flex">
+          Kimberly Fasbender
+        </Link>
       </TopNav>
-      <div className="page">
-        <SideNav />
-        <main className="flex column">
-          <Component {...pageProps} />
-        </main>
-        <TableOfContents toc={toc} />
-      </div>
-      <style jsx>
-        {`
-          .page {
-            position: fixed; 
-            top: var(--top-nav-height);
-            display: flex;
-            width: 100vw;
-            flex-grow: 1;
-          }
-          main {
-            overflow: auto;
-            height: calc(100vh - var(--top-nav-height));
-            flex-grow: 1;
-            font-size: 16px;
-            padding: 0 2rem 2rem;
-          }
-        `}
-      </style>
+      <TabGroup 
+        toc={toc}
+        component={<Component {...pageProps} />}
+      />
     </>
   );
 }
