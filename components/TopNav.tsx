@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 
 export function TopNav({children}) {
   // TODO: Swap KF for a logo
@@ -20,7 +19,6 @@ export function TopNav({children}) {
             gap: 1rem;
             padding: 1rem 2rem;
             background: #F7FAFC;
-            border-bottom: 1px solid var(--border-color);
           }
           nav :global(a) {
             text-decoration: none;

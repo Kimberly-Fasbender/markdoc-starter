@@ -18,8 +18,8 @@ export function TabGroup(props) {
 
   return (
   <>
-    <div className='tab-group'>
-      <ol>
+    <nav>
+      <section>
         <Tab
           activeTab={activeTab}
           label={labels.portfolio}
@@ -30,8 +30,8 @@ export function TabGroup(props) {
           label={labels.aboutMe}
           onClickTab={onClickTab}
         />
-      </ol>
-    </div>
+      </section>
+    </nav>
     <div>
       {activeTab === 'portfolio' ? 
       (
@@ -44,23 +44,26 @@ export function TabGroup(props) {
         </div>
       ) : 
       (
-        <div>About Me - TODO</div>
+        <div className="page">About Me - TODO</div>
       )} 
     </div>
     <style jsx>
     {`
-      .tab-group {
+      nav {
         top: 51px;
         position: fixed;
         width: 100%;
         z-index: 100;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 1 rem;
-        padding: 1 rem 2rem;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem 2rem;
         background: #F7FAFC;
         border-bottom: 1px solid var(--border-color);
+      }
+      nav :global(a) {
+        text-decoration: none;
       }
       main {
         overflow: auto;
@@ -75,10 +78,11 @@ export function TabGroup(props) {
         display: flex;
         width: 100vw;
         flex-grow: 1;
-      span {
-        font-size: larger;
-        font-weight: 500;
-        padding: 0.5rem 0 0.5rem;
+      }
+      section {
+        display: flex;
+        gap: 1rem;
+        padding: 0;
       }
     `}
   </style>

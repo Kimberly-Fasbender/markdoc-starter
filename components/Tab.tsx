@@ -1,7 +1,3 @@
-import React, { Component, useState } from 'react';
-import { SideNav } from './SideNav';
-import { TableOfContents } from './TableOfContents';
-
 export function Tab(props) {
   const { label, onClickTab } = props;
 
@@ -11,9 +7,9 @@ export function Tab(props) {
   }
 
   return (
-    <li
+    <div
       onClick={onClick}
     >
       {label}
-    </li>
+    </div>
 )};
