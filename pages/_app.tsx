@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 
 import { SideNav, TableOfContents, TopNav } from '../components';
 
@@ -12,7 +11,7 @@ import 'prismjs/themes/prism.css';
 import '../public/globals.css'
 
 import type { AppProps } from 'next/app'
-import { TabGroup } from '../components/TabGroup';
+import { useRouter } from 'next/router';
 
 const TITLE = 'Markdoc';
 const DESCRIPTION = 'A powerful, flexible, Markdown-based authoring framework';
@@ -54,6 +53,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     }
   }
 
+  const router = useRouter();
   const toc = pageProps.markdoc?.content
     ? collectHeadings(pageProps.markdoc.content)
     : [];
@@ -69,15 +69,32 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <TopNav>
-        <Link href="/" className="flex">
-          Kimberly Fasbender
-        </Link>
-      </TopNav>
-      <TabGroup 
-        toc={toc}
-        component={<Component {...pageProps} />}
-      />
+      <TopNav/>
+      <div className="page">
+        {router.pathname === '/docs' && <SideNav />}
+          <main className="flex column">
+            <Component {...pageProps} />
+          </main>
+        {router.pathname === '/docs' && <TableOfContents toc={toc} />}
+      </div>
+      <style jsx>
+        {`
+          .page {
+            position: fixed; 
+            top: var(--top-nav-height);
+            display: flex;
+            width: 100vw;
+            flex-grow: 1;
+          }
+          main {
+            overflow: auto;
+            height: calc(100vh - var(--top-nav-height));
+            flex-grow: 1;
+            font-size: 16px;
+            padding: 0 2rem 2rem;
+          }
+        `}
+      </style>
     </>
   );
 }

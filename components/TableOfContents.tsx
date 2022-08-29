@@ -38,8 +38,8 @@ export function TableOfContents({toc}) {
         {`
           nav {
             position: sticky;
-            top: calc(2.5rem + 102px);
-            max-height: calc(100vh - 102px);
+            top: calc(2.5rem + var(--top-nav-height));
+            max-height: calc(100vh - var(--top-nav-height));
             flex: 0 0 auto;
             align-self: flex-start;
             margin-bottom: 1rem;
@@ -53,13 +53,16 @@ export function TableOfContents({toc}) {
           li {
             list-style-type: none;
             margin: 0 0 1rem;
+            color: #697386
           }
           li a {
             text-decoration: none;
           }
-          li a:hover,
+          li a:hover {
+            color: black;
+          }
           li.active a {
-            text-decoration: underline;
+            color: #5469D4
           }
           li.padded {
             padding-left: 1rem;
