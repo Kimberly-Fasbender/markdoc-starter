@@ -16,6 +16,25 @@ import { useRouter } from 'next/router';
 const TITLE = 'Markdoc';
 const DESCRIPTION = 'A powerful, flexible, Markdown-based authoring framework';
 
+const portfolioItems = [
+  {
+    title: 'Technical Writing Portfolio',
+    links: [
+      {href: '/', children: 'Manually Generate New CA Certificate'},
+      {href: '/design_doc', children: 'Work Session Clean Up Design'},
+    ],
+  },
+];
+
+const aboutMeItems = [
+  {
+    title: 'About Section',
+    links: [
+      {href: '/about_me', children: 'Meet Kimberly Fasbender'},
+    ],
+  },
+];
+
 function collectHeadings(node, sections = []) {
   if (node) {
     if (node.name === 'Heading') {
@@ -71,11 +90,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <TopNav/>
       <div className="page">
-        {(router.pathname === '/cert_generation' || router.pathname === '/design_doc') && <SideNav />}
+        {(router.pathname === '/' || router.pathname === '/design_doc') && <SideNav items={portfolioItems} />}
+        {(router.pathname === '/about_me') && <SideNav items={aboutMeItems} />}
           <main className="flex column">
             <Component {...pageProps} />
           </main>
-        {(router.pathname === '/cert_generation' || router.pathname === '/design_doc') && <TableOfContents toc={toc} />}
+        {(router.pathname === '/' || router.pathname === '/design_doc') && <TableOfContents toc={toc} />}
       </div>
       <style jsx>
         {`

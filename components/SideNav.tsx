@@ -2,17 +2,8 @@ import React from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 
-const items = [
-  {
-    title: 'Technical Writing Portfolio',
-    links: [
-      {href: '/cert_generation', children: 'Manually Generate New CA Certificate'},
-      {href: '/design_doc', children: 'Work Session Clean Up Design'},
-    ],
-  },
-];
-
-export function SideNav() {
+export function SideNav(props) {
+  const { items } = props;
   const router = useRouter();
 
   return (
