@@ -1,10 +1,10 @@
 ---
-title: Manually Generate New CA Certificate
+title: Manually Generate New CA Certificate for Temporal Namespaces
 ---
 # {% $markdoc.frontmatter.title %}
-Instructions for an on call engineer to generate new CA certificates and keys for Temporal namespaces
+Instructions for an internal on call engineer to generate new CA certificates and keys for Temporal namespaces
 
-## Manually Generating a New CA Cert for Temporal Namespaces
+## Manually Generating a New Certicate
 
 Temporal namespace certificates have a shelf life of 1 year. Before they expire they need to be swapped out for new certificates and keys which can be generated in AWS Secrets Manager.
 
@@ -15,7 +15,7 @@ Security has provided us with a script to generate a new CA certificate and key.
 
 Generate 2 certificates (run the script twice), one for the production and demo environments to share and another for the test environment.
 
-### Verify Certificate Generation and Storage
+### Verify Certificate Generation
 The script currently saves newly generated certificates and keys under a secret name with the following prefix: `temp-temporal-$UUID/rootca/`
 
 Navigate to the Secrets Manager in the AWS Console and search for the secret names (two ending in `/cert` and two ending in `/key`). You will be able to identify the ones you just created based on their creation date in the event that there are older temporary certificates still remaining from a previous generation cycle.
@@ -52,7 +52,7 @@ This is insurance in case something goes wrong during the swap so we can quickly
   - `test/temporal/x509/rootca/key`
 3. Copy/paste them into the values for the temp-backup secrets by clicking ‘Retrieve secret value’ and then ‘edit’ in the AWS Secrets Manager console.
 
-### Wait to hear back from Temporal that the new cert is in place
+### Wait to Hear Back From Temporal
 Wait to hear back from Temporal that the new cert is in place before continuing on, otherwise temporal-service will go down and our customers will be unable to work.
 
 ## Swap in the New Certs and Keys
@@ -91,8 +91,8 @@ This should be done during lower traffic times on temporal-service if possible, 
 3. Watch for any pages or outages.
 4. Trigger a test workflow in production, navigate to the temporal-service UI, and complete the test ticket to verify that the certificate is being accepted.
 
-### Notify Temporal to Remove Expiring Certs and Keys
-Add a comment in the open ZenDesk ticket letting the Temporal team know that they can remove the old certs and keys.
+### Notify Temporal to Remove Expiring Certs
+Add a comment in the open ZenDesk ticket letting the Temporal team know that they can remove the old certs.
 
 ### Schedule Removal of Temp Secrets
 Schedule the deletion of the temporary and backup certs and keys in Secrets Manager by navigating to the secret in the AWS console and clicking on the ‘Actions’ drop down while logged in using the DeveloperRW role. In the drop down menu, click on ‘Delete secret’.
@@ -116,5 +116,6 @@ Schedule the deletion of the temporary and backup certs and keys in Secrets Mana
 3. Click the 3 dots on the right of the deployment you want to restart (e.g. temporal-service-http-primary-#######) + click restart
 
 ### Supporting Documents
-**AWS Secrets Manager**: [https://docs.aws.amazon.com/secretsmanager/](https://docs.aws.amazon.com/secretsmanager/)
-**Lens Documentation**: [https://docs.k8slens.dev/main/](https://docs.k8slens.dev/main/)
+[AWS Secrets Manager Documentation](https://docs.aws.amazon.com/secretsmanager/)
+
+[Lens Documentation](https://docs.k8slens.dev/main/)
