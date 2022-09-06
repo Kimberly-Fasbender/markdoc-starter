@@ -4,7 +4,7 @@ description: About Me Section
 ---
 
 # {% $markdoc.frontmatter.title %}
-Austin, TX | kimberly.fasbender@gmail.com | 512-563-9881
+Austin, TX | kimberly.fasbender@gmail.com
 
 [Resume](https://i.ibb.co/543N141/Kimberly-Fasbender-Technical-Writing-Resume.jpg) |
 [LinkedIn](https://www.linkedin.com/in/kimfasbender/) |
