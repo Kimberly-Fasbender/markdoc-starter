@@ -1,6 +1,6 @@
 ---
 title: Meet Kimberly Fasbender
-description: About Me
+description: About Me Section
 ---
 
 # {% $markdoc.frontmatter.title %}
