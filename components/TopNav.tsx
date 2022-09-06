@@ -4,14 +4,14 @@ import React from 'react';
 
 export function TopNav() {
   const router = useRouter();
-  const links = [{label: 'About Kim', href: '/'}, {label: 'Portfolio', href: '/docs'}];
+  const links = [{label: 'About Kim', hrefs: ['/']}, {label: 'Portfolio', hrefs: ['/cert_generation', '/design_doc']}];
 
   return (
     <nav>
       {links.map((link) => {
-        const active = router.pathname === link.href;
+        const active = link.hrefs.includes(router.pathname);
         return (
-          <Link key={link.href} href={link.href} className="flex">
+          <Link key={link.hrefs[0]} href={link.hrefs[0]} className="flex">
             <a className={active ? 'active' : ''}>
               {link.label}
             </a>

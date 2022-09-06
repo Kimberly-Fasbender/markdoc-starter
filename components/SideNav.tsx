@@ -5,7 +5,10 @@ import Link from 'next/link';
 const items = [
   {
     title: 'Technical Writing Portfolio',
-    links: [{href: '/docs', children: 'Manually Generate New CA Certificate'}],
+    links: [
+      {href: '/cert_generation', children: 'Manually Generate New CA Certificate'},
+      {href: '/design_doc', children: 'Work Session Clean Up Design'},
+    ],
   },
 ];
 

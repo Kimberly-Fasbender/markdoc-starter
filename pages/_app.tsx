@@ -71,11 +71,11 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <TopNav/>
       <div className="page">
-        {router.pathname === '/docs' && <SideNav />}
+        {(router.pathname === '/cert_generation' || router.pathname === '/design_doc') && <SideNav />}
           <main className="flex column">
             <Component {...pageProps} />
           </main>
-        {router.pathname === '/docs' && <TableOfContents toc={toc} />}
+        {(router.pathname === '/cert_generation' || router.pathname === '/design_doc') && <TableOfContents toc={toc} />}
       </div>
       <style jsx>
         {`
