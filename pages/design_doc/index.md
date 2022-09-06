@@ -84,8 +84,8 @@ One caveat to starting an activity in a nonCancellable scope is that it could r
 
 **Unhappy Path 3 - Workflow is cancelled after work session has been completed:**
 
-
 Workflow is still running, possibly doing automated work that does not require user intervention, even though the work session has been completed. 
+
 ![bp: unhappy path 3](https://i.ibb.co/99xPthC/bp-unhappy-path-3.png)
 
 [Live Diagram](https://mermaid.live/edit#pako:eNp9U01r4zAQ_SuDoHQXEmiy5OJDYbebQ6G7LbilF10UaeKYyCNXkltCyH_fkeUEpw0rg2Vm3rx58-G90M6gKETAtw5J4-9aVV41kq6u4IU2qm138KTipoAP57dr6z6gDqAVQ61FA2od0cNr2Vtd01qMaCT9WkKJ_r3WOL29fR0iMwcQouHItfOAFOu4g9n8h6QjKgWUZQHao4qYrCWGUDv6ClHGJNOzCtsAU4h8w0zSPbEmUhZe7o_ICuOj_8k0VU_CVGXJvhGS2Xp3yCIzF0QHXUB_kfNY7khiUjISkpP04K41XM0Zd4jJMoXru8c_Tw_L5-X1KeLUsGN5d0MuSBKVvdAt68KnZl1OHrL_Yvb_Te18XEAOrKOKZ5_HKcmjjuCr1bf5zc0EZgt-zReL75KAz1_Hydx7WpUT7bBEKvZytGsxY8elnWnot09bVMQVSULirDkk3V8fGB0xEQ36RtWGl32ffFLEDTYoRcGfRvFSiEm2r5zZJfN-IBcrpbeVdx0n7NErywYpkvsg6cDcucNLU0fnRbFWNuBEqC66ckdaFNF3eAQNf9iAOvwDCN0zqQ)
