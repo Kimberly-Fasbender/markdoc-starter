@@ -8,11 +8,11 @@ Technical design document for internal developer and data science audience propo
 ### Terminology
 - **business process**: A single discernible unit of work, on or with a real world entity (shipment, shipment stop, location profile, etc).
 
-- **Temporal**: a developer-first, open source platform that ensures the successful execution of services and applications (using workflows)
+- **Temporal**: A developer-first, open source platform that ensures the successful execution of services and applications (using workflows).
 
-- **workflow**: an orchestrated and repeatable pattern of activity, enabled by the systematic organization of resources into processes that transform materials, provide services, or process information. For more detailed information on Temporal workflows see docs [here](https://docs.temporal.io/workflows).
+- **workflow**: An orchestrated and repeatable pattern of activity, enabled by the systematic organization of resources into processes that transform materials, provide services, or process information. For more detailed information on Temporal workflows see docs [here](https://docs.temporal.io/workflows).
 
-- **child workflow**: a workflow that has been triggered by another workflow. The parent workflow it was triggered from may or may not need to wait on this child workflow to complete.
+- **child workflow**: A workflow that has been triggered by another workflow. The parent workflow it was triggered from may or may not need to wait on this child workflow to complete.
 
 - **work-session-service (WSS)**: A backend service responsible for creating, managing, and assigning work to be put in front of our end users.
 
@@ -28,10 +28,12 @@ For workflows that are cancellable, a top-level [CancellationScope](https://docs
 
 There are a few different scenarios in which we expect workflows to be cancelled:
 1. **Business Process Cancellations**
+
     *Example*: The underlying shipment for a scheduling workflow is cancelled
     
     In these cases any work or actions, that aren’t already in progress by a user, should be prevented from continuing forward. This will require some clean up in work-session-service to close out unassigned work sessions and work tasks. Also, workflow owners will need a way to undo any work that was already completed and may need to be undone. This could mean authors creating “down” work tasks, tasks that are the opposite of the work tasks that have been (or could be) completed. For example, given that a task to schedule an appointment has already been completed, the down task for that might be to unschedule that appointment.
 2. **Invalid Workflow State Cancellations**
+
     *Example*: There’s an unrecoverable bug in the workflow. 
     
     In these cases the business processes likely should not be ended, but rather the issue should be rectified and the workflow should continue from wherever we left off. For example, if there was a bug in a scheduling workflow and a task was already completed to schedule an appointment, that work would still be valid. There just needs to be a way for the subsequent workflow to pick back up from that point, update our internal systems and continue. It would be a really negative experience for both internal and external users for us to first undo the task, and then redo it again just because workflows needed to be cancelled.
@@ -45,9 +47,9 @@ In order to prove out a pattern that works for all of these scenarios, handshake
 
 - **cleanUpWorkSession endpoint**: For work session cleanup a new endpoint in work-session-service is needed: `cleanUpWorkSession`. It will take in a work session id, fetch the work session and its associated work tasks and then mark them all appropriately so that nothing is left in a ‘PROCESSING’, ‘ACTIVE’, or ‘AVAILABLE’ state. For example, if a work session has been created, but not yet assigned, its state should be updated to ‘CANCELLED’ (a new state) and all of its work tasks would have their state updated to ‘WONT_DO’. However, If a work session has been assigned and is in progress, all un-assigned (not yet picked up) associated work tasks would have their state updated to ‘WONT_DO’, while any in-progress (assigned) work tasks would not have their state updated (they would be marked as ‘COMPLETED’ once the user finishes the task via the `completeWorkSessionTask` endpoint or as ‘WONT_DO’ in the event of stale un-assignment (more details to come in the stale un-assignment bullet point), and the work session would still be updated to the new ‘CANCELLED’ state.
 
-- **workflowCleanup**: refers to any work that a workflow author may need to do in order to gracefully handle a cancellation. Authors shouldn’t be limited in the ways in which they can handle this cleanup, but should be enabled to do whatever is necessary here. Some patterns or templates can be established in order to make this process easier for workflow authors, but ultimately it will be up to them to make decisions about what to do if partially or fully completed work is cancelled since they are the experts in their spaces. One option is that for any work task created, a ‘down’ task is created as well, and then used to unravel or undo any work when necessary. Similar to up and down database migrations. The down tasks could then be fed into a clean up workflow that is kicked off when a workflow is cancelled (most likely a non-cancellable child workflow). This goes exceeds the scope of this design, but should be explored in a separate document.
+- **workflowCleanup**: Refers to any work that a workflow author may need to do in order to gracefully handle a cancellation. Authors shouldn’t be limited in the ways in which they can handle this cleanup, but should be enabled to do whatever is necessary here. Some patterns or templates can be established in order to make this process easier for workflow authors, but ultimately it will be up to them to make decisions about what to do if partially or fully completed work is cancelled since they are the experts in their spaces. One option is that for any work task created, a ‘down’ task is created as well, and then used to unravel or undo any work when necessary. Similar to up and down database migrations. The down tasks could then be fed into a clean up workflow that is kicked off when a workflow is cancelled (most likely a non-cancellable child workflow). This goes exceeds the scope of this design, but should be explored in a separate document.
 
-- **Stale Un-assignment**: The `unassignStaleWork` function, which checks if a user has been assigned to work task for too long (logged off, went to lunch, etc) and unassigns it, will need to be updated to check if the work session state is ‘CANCELLED’ and if so, un-assign the user from the task and mark the task as ‘WONT_DO’.After investigation it doesn’t appear that there should be any issues with re-using ‘WONT_DO’ for these cases (vs. creating a new work task state of ‘CANCELLED’), but if anything surfaces that would suggest re-using this would be a conflict, a new task state of ‘CANCELLED’ should be created instead.
+- **stale un-assignment**: The `unassignStaleWork` function, which checks if a user has been assigned to work task for too long (logged off, went to lunch, etc) and unassigns it, will need to be updated to check if the work session state is ‘CANCELLED’ and if so, un-assign the user from the task and mark the task as ‘WONT_DO’.After investigation it doesn’t appear that there should be any issues with re-using ‘WONT_DO’ for these cases (vs. creating a new work task state of ‘CANCELLED’), but if anything surfaces that would suggest re-using this would be a conflict, a new task state of ‘CANCELLED’ should be created instead.
 
 - **closeWorkSession**: A non-cancellable wrapper would need to be added to the existing `closeWorkSession` function as well, to ensure work sessions are properly closed out in the event of workflow cancellations.
 
@@ -129,6 +131,7 @@ Although not expected for production workflows, these should be handled the same
 Add new work session state ‘CANCELLED’ to the list of states for a work session.
 
 ### Create Clean Up End Point
+
 ```
 cleanUpWorkSession(input: CleanUpWorkSessionRequest): CleanupWorkSessionResponse
 
@@ -158,6 +161,7 @@ Add a try/catch block which calls a new function, `cleanUpWorkSession` when a wo
 If this were to be moved further out than this this level (if workflow authors end up needing a workflow template class, or a higher level wrapper in order to hook up cancellation workflow cleanup), more state management would need to built into the workflow file to support work session cleanup. The tradeoffs of doing this may or may not be worth it, so a decision doc would be recommended if this needs to be explored.
 
 In practice, this might look something like this:
+
 ```typescript
 // new
 async cleanUpWorkSession() {
