@@ -55,7 +55,7 @@ To get started with ATX: Get to the Fest:
 - Login/Logout functionality using Firebase for auth
 - Scoreboard and save functionality using Firebase
 - Level map with ability to re-play levels
-- Additional levels, including a queso level where all the surfaces are slippery
+- Additional levels, including a queso level where all surfaces are slippery
 
 ### Helpful Tutorials
 - [Udemy Tutorial](https://www.udemy.com/course/unitycourse/?utm_source=adwords-learn&utm_medium=udemyads&utm_campaign=NEW-AW-PROS-TECH-US-DSA-1-EN-ENG_._ci__._sl_ENG_._vi_TECH_._sd_All_._la_EN_._&utm_content=deal4584&utm_term=_._ag_60674439291_._ad_372960831812_._de_c_._dm__._pl__._ti_dsa-849101091727_._li_1027744_._pd__._&gclid=EAIaIQobChMI9cOt9oyg5gIVjtdkCh1bMwafEAAYASAAEgITu_D_BwE) - Frequently goes on sale for $19.99
