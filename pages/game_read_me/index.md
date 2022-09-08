@@ -17,10 +17,17 @@ Available for play on itch.io: [PLAY ATX - GET TO THE FEST](https://kfasbender.i
 - _Jump_: space bar (jump higher the longer you hold the button down)
 - _Roll_: automatic when running up or down slope
 
-### Game Play Features  
+### Game Play Features and Enemies
 - _Speed Arrows_: increases the speed of your character's rolling
 - _Giant Flowers_: jump on them to bounce. The more times you jump on them, the higher you go
 - _Level Exit_: touch the door at the end of each level to continue to the next stage
+- _Music Notes_: gain points by collecting them - worth 100 pts each
+- _Beer_: touch to gain 1 health
+- _Spike_: hazard - character loses 1 health when touched
+- _Water_: hazard - character loses 1 health when touched
+- _Thwomp_: enemy - character loses 1 health when touched
+- _Red Walkers_: enemy - character loses 1 heatlh when touched
+
 
 ## Development
 ### Technologies
@@ -47,6 +54,7 @@ To get started with ATX: Get to the Fest:
 - Volume control and music on/off functionality
 - Login/Logout functionality using Firebase for auth
 - Scoreboard and save functionality using Firebase
+- Level map with ability to re-play levels
 - Additional levels, including a queso level where all the surfaces are slippery
 
 ### Helpful Tutorials
