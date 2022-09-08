@@ -3,11 +3,6 @@ import Head from 'next/head';
 
 import { SideNav, TableOfContents, TopNav } from '../components';
 
-import 'prismjs';
-// Import other Prism themes here
-import 'prismjs/components/prism-bash.min';
-import 'prismjs/themes/prism.css';
-
 import '../public/globals.css'
 
 import type { AppProps } from 'next/app'
@@ -16,12 +11,14 @@ import { useRouter } from 'next/router';
 const TITLE = 'Markdoc';
 const DESCRIPTION = 'A powerful, flexible, Markdown-based authoring framework';
 
+const portfolioLinks = ['/', '/design_doc', '/game_read_me'];
 const portfolioItems = [
   {
     title: 'Technical Writing Portfolio',
     links: [
-      {href: '/', children: 'Manually Generate New CA Certificate'},
-      {href: '/design_doc', children: 'Work Session Clean Up Design'},
+      {href: portfolioLinks[0], children: 'Manually Generate New CA Certificate'},
+      {href: portfolioLinks[1], children: 'Work Session Clean Up Design'},
+      {href: portfolioLinks[2], children: 'ATX Game Documentation'}
     ],
   },
 ];
@@ -90,12 +87,12 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <TopNav/>
       <div className="page">
-        {(router.pathname === '/' || router.pathname === '/design_doc') && <SideNav items={portfolioItems} />}
+        {portfolioLinks.includes(router.pathname) && <SideNav items={portfolioItems} />}
         {(router.pathname === '/about_me') && <SideNav items={aboutMeItems} />}
           <main className="flex column">
             <Component {...pageProps} />
           </main>
-        {(router.pathname === '/' || router.pathname === '/design_doc') && <TableOfContents toc={toc} />}
+        {portfolioLinks.includes(router.pathname) && <TableOfContents toc={toc} />}
       </div>
       <style jsx>
         {`

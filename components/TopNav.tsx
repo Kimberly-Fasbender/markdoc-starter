@@ -4,7 +4,7 @@ import React from 'react';
 
 export function TopNav() {
   const router = useRouter();
-  const links = [{label: 'About Kim', hrefs: ['/about_me']}, {label: 'Portfolio', hrefs: ['/', '/design_doc']}];
+  const links = [{label: 'About Kim', hrefs: ['/about_me']}, {label: 'Portfolio', hrefs: ['/', '/design_doc', '/game_read_me']}];
 
   return (
     <nav>
